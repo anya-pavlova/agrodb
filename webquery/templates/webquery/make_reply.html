@@ -1,0 +1,158 @@
+{% load staticfiles %}
+<html>
+    <head>
+        <title> Results </title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="{% static 'css/reply.css' %}">
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+        <!-- JavaScript fore -->
+{% comment %}
+        <script type="text/javascript">
+            google.charts.load('current', {'packages':['corechart']});
+            google.charts.setOnLoadCallback(drawChart);
+
+            function drawChart() {
+                // Create the data table.
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'Location');
+                data.addColumn('number', 'Expression');
+
+                data.addRows([
+                {% for expression in result.expressions %}
+                    [ '{{ expression.name }}', {{ expression.value }} ],
+                {% endfor %}
+                ]);
+
+                var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+                // Set chart options
+
+                var options = {
+                    title: 'Expression',
+                    curveType: 'function',
+                    width: 350,
+                    height: 300,
+                    colors: ['#1437AD'],
+                    backgroundColor: '#F5F3F0',
+                    legend: { position: 'bottom' },
+                    is3D: true,
+                    pointShape: 'circle',
+                    pointSize: 3,
+                    hAxis: {title: 'sample and location'},
+                    vAxis: {title: 'expression'},
+                    };
+
+                chart.draw(data, options);
+        }
+        </script>
+{% endcomment %}
+
+        <!--Bar Chart -->
+{% comment %}
+        <script type="text/javascript">
+        google.charts.load('current', {packages: ['corechart', 'bar']});
+        google.charts.setOnLoadCallback(drawBasic);
+
+        function drawBasic() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Location');
+            data.addColumn('number', 'Expression');
+
+            data.addRows([
+            {% for expression in result.expressions %}
+                [ '{{ expression.name }}', {{ expression.value }} ],
+            {% endfor %}
+            ]);
+
+        var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+        var options = {
+            title: 'Expression value in different samples and locations',
+            chartArea: {width: '50%'},
+            width: 450,
+            height: 400,
+            colors: ['#1437AD'],
+            backgroundColor: '#F5F3F0',
+            hAxis: {title: 'Expression value', minValue: 0},
+            vAxis: {title: 'Sample and location'}
+            };
+
+        chart.draw(data, options);
+        }
+        </script>
+{% endcomment %}
+        <!--And Bar Chart -->
+
+        <!-- Bar Char fore Species -->
+{% comment %}
+        <script type="text/javascript">
+        google.charts.load('current', {packages: ['corechart', 'bar']});
+        google.charts.setOnLoadCallback(drawBasic);
+
+        function drawBasic() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Species');
+            data.addColumn('number', 'Expression');
+
+            data.addRows([
+            {% for species in result.species %}
+                [ '{{ species.name }}', {{ species.value }} ],
+            {% endfor %}
+            ]);
+
+        var chart = new google.visualization.BarChart(document.getElementById('chart_div_2'));
+        var options = {
+            title: 'Expression value in different samples and locations',
+            chartArea: {width: '50%'},
+            width: 450,
+            height: 400,
+            colors: ['#1437AD'],
+            backgroundColor: '#F5F3F0',
+            hAxis: {title: 'Expression value', minValue: 0},
+            vAxis: {title: 'Sample and location'}
+            };
+
+        chart.draw(data, options);
+        }
+        </script>
+{% endcomment %}
+        <!-- End Bar Char-->
+    </head>
+
+    <body>
+        <div>
+            <h1> Данные по эксперименту: </h1>
+        </div>
+
+    <h5><img src="http://agroplazma.com/design/img/logo.png" alt="brain pic"
+             style="position:absolute;left:900px;right:1700px; top: -10px;"
+             width="600" height="224" />
+    </h5>
+
+    <h2>Эксперимент: {{ result.experiment }}</h2>
+
+    <table>
+        <tr>
+            <th>Hybrid</th>
+            {%  for item in result.query.data %}
+            <th>{{ item }}</th>
+            {% endfor %}
+        </tr>
+
+        {% for expression in result.records %}
+        <tr>
+            {% for item in expression.values %}
+            <td>{{ item }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+
+
+    <!-- Identify where the chart should be drawn. -->
+    <div id="curve_chart" style="position:absolute;left:800px;right:1700px; top: 205px;" ></div>
+    <div id="chart_div_2" style="position:absolute;left:800px;right:1700px; top: 505px;"></div>
+    <div id="chart_div" style="position:absolute;left:800px;right:1700px; top: 905px;"></div>
+    
+</body>
+</html>

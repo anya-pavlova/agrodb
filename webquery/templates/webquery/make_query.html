@@ -1,0 +1,86 @@
+{% load staticfiles %}
+<html>
+<head>
+    <title> Agroplazma Database </title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="{% static 'css/query.css' %}">
+
+</head>
+<body>
+    <div>
+         <h2>Таблица данных по экспериментам</h2>
+        <style>
+            h2 {
+                color: #33A048;
+                font-size: 250%;
+                font-family: 'Lobster';
+                padding-left: -2px;
+                padding: 10px;
+        }
+        </style>
+    </div>
+
+    <h5><img src="http://agroplazma.com/design/img/logo.png" alt="я красивая картинка"
+             style="position:absolute;left:900px;right:1700px; top: 35px;"
+             width="600" height="224" />
+    </h5>
+
+
+
+
+    <form method="POST" class="post-form">
+
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default">Search</button>
+
+        <style>
+            button{
+                position: absolute;left:700px;right:1700px; top: 150px;
+                }
+        </style>
+    </form>
+
+    <table>
+
+    <tr><th>Эксперимент</th><th>Сокращение </th></tr>
+    <tr><td>Подсолнечник Воронеж 2016</td><td>SFVoronezh16</td></tr>
+    <tr><td>Подсолнечник Белгород 20016</td><td>SFBelgorod16</td></tr>
+    <tr><td>Подсолнечник SFCommHybrids 2016</td><td>SFCommHybrids16</td></tr>
+
+
+    <style>
+          table {
+          font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+          font-size: 20px;
+          background: #F5F3F0;
+          max-width: 40%;
+          width: 40%;
+          border-collapse: collapse;
+          text-align: left;
+          position: absolute;left:900px;right:1700px; top: 305px;
+        }
+
+
+        th {
+          font-weight: normal;
+          text-align: center;
+          border-bottom: 2px solid #33A048;
+          border-right: 30px solid #F5F3F0;
+          border-left: 30px solid #F5F3F0;
+          color: #33A048;
+          padding: 8px 2px;
+        }
+
+        td {
+          color: #000000;
+          padding: 9px 8px;
+          transition: .3s linear;
+        }
+    </style>
+
+    </table>
+
+</body>
+</html>
